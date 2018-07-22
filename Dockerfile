@@ -45,32 +45,34 @@ RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
     pip uninstall matplotlib -y && \ 
     git clone https://github.com/matplotlib/matplotlib.git && \
     cd matplotlib && \ 
-    python setup.py install && \
+    python setup.py install"
+
+# Download OpenCV and unpack it  
+RUN /bin/bash -c "cd $HOME && \
     wget -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip && \
     wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.3.1.zip && \ 
     unzip opencv.zip && \ 
     unzip opencv_contrib.zip && \ 
-    cd opencv-3.3.1 && \ 
+    cd opencv-3.3.1"
+
+RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
+    cd $HOME/opencv-3.3.1 && \
     mkdir build && \ 
     cd build && \ 
     workon gurus && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE && \
-    -D CMAKE_INSTALL_PREFIX=/usr/local && \
-    -D WITH_CUDA=OFF && \
-    -D INSTALL_PYTHON_EXAMPLES=ON && \
-    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.3.1/modules && \
-    -D BUILD_EXAMPLES=ON .. && \
-    make -j4 && \ 
-    make install && \ 
-    ldconfig && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D WITH_CUDA=OFF \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.3.1/modules \
+    -D BUILD_EXAMPLES=ON .. &&\
+             make -j4 && \ 
+             make install && \ 
+             ldconfig && \
     cd ~/.virtualenvs/gurus/lib/python3.5/site-packages/ && \ 
-    ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so && \
-    cd ~ && \
-    workon gurus && \ 
-    python && \
-    import cv2 && \ 
-    cv2.__version__ && \ 
-    '3.3.1'"
+    ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so"
 
 RUN cd ~ \
     wget https://gurus.pyimagesearch.com/wp-content/uploads/2015/03/pyimagesearch_gurus_logo.png
+    
+WORKDIR $HOME
