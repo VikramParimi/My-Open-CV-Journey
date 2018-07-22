@@ -1,4 +1,4 @@
-#OpenCV Docker Image
+#OpenCV-DockerImage
 Dockerfile to build an OpenCV docker image with ML frameworks.
 
 ### My-Open-CV-Journey
