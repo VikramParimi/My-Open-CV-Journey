@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-LABEL Maintainer="Canonical and Tianon (Debian Developer)" 
+LABEL Maintainer="Vikram Chowdary Parimi (Full-Stack Developer)" 
 
 #STEP1: Update the apt-get  package manager and upgrade any pre-installed packages
 RUN apt-get update && apt-get upgrade -y
@@ -75,4 +75,4 @@ RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
 RUN cd ~ \
     wget https://gurus.pyimagesearch.com/wp-content/uploads/2015/03/pyimagesearch_gurus_logo.png
     
-WORKDIR $HOME
+WORKDIR /bin/bash -c $HOME
