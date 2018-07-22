@@ -1,4 +1,7 @@
-# My-Open-CV-Journey
+#OpenCV Docker Image
+Dockerfile to build an OpenCV docker image with ML frameworks.
+
+### My-Open-CV-Journey
 Starting my OpenCV Journey and committing myself to push regular updates
 
 ## Quick Start
