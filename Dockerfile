@@ -71,8 +71,5 @@ RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
              ldconfig && \
     cd ~/.virtualenvs/gurus/lib/python3.5/site-packages/ && \ 
     ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so"
-
-RUN cd ~ \
-    wget https://gurus.pyimagesearch.com/wp-content/uploads/2015/03/pyimagesearch_gurus_logo.png
     
 WORKDIR /bin/bash -c $HOME
