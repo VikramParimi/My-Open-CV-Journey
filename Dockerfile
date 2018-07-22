@@ -5,6 +5,9 @@ LABEL Maintainer="Canonical and Tianon (Debian Developer)"
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     build-essential cmake pkg-config \
+    wget \
+    git \
+    unzip \
     python2.7 python2.7-dev \
     python3.5 python3.5-dev python3-pip python3.5-venv \
     libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev \
@@ -14,12 +17,9 @@ RUN apt-get install -y \
     libatlas-base-dev gfortran \ 
     libboost-all-dev
 
-#STEP8: Install pip
-RUN apt-get install wget -y
+#STEP8: Install pip, virtualenv  and virtualenvwrapper
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
-
-#STEP9: Install virtualenv  and virtualenvwrapper
 RUN pip install virtualenv virtualenvwrapper
 RUN rm -rf ~/.cache/pip
 
@@ -31,8 +31,6 @@ RUN echo "# virtualenv and virtualenvwrapper" >> $HOME/.bashrc && \
 #Set ENV Variable
 ENV WORKON_HOME=/root/.virtualenvs
 #Reload the .bashrc file
-RUN ["/bin/bash", "-c", "source /usr/local/bin/virtualenvwrapper.sh"]
-RUN apt-get install git -y
 RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
     cd $HOME && \
     echo \"inside $WORKON_HOME\" && \
@@ -48,7 +46,6 @@ RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && \
     git clone https://github.com/matplotlib/matplotlib.git && \
     cd matplotlib && \ 
     python setup.py install && \
-    cd ~ && \
     wget -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip && \
     wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.3.1.zip && \ 
     unzip opencv.zip && \ 
